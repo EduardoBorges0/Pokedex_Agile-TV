@@ -6,7 +6,7 @@ import com.app.pokedex.R
 
 object Utils{
     fun playSound(context : Context) {
-        val mediaPlayer = MediaPlayer.create(context, R.raw.song) // Referência ao arquivo de som
+        val mediaPlayer = MediaPlayer.create(context, R.raw.song) 
         mediaPlayer.start()
         mediaPlayer.setOnCompletionListener {
             it.release()
