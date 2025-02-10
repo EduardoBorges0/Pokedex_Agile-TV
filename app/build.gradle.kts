@@ -56,18 +56,13 @@ dependencies {
     implementation (libs.logging.interceptor)
     implementation (libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.coil.gif) // Dependência para suporte a GIFs
-    implementation(libs.androidx.navigation.compose)  // Versão mais recente
+    implementation(libs.coil.gif)
+    implementation(libs.androidx.navigation.compose)
     implementation (libs.accompanist.navigation.animation)
     testImplementation (libs.mockk)
     testImplementation(libs.androidx.core.testing)
-
-    // MockK para mockar dependências
-
-    // Coroutines Test para testar funções assíncronas
     testImplementation(libs.kotlinx.coroutines.test)
     implementation(libs.coil.compose)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

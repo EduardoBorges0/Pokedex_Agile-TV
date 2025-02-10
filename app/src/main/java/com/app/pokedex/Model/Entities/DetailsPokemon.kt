@@ -11,8 +11,8 @@ data class DetailsPokemon(
     val location_area_encounters: String
 )
 
-data class AbilitySlot(  // Nova data class para representar o "ability" com "is_hidden" e "slot"
-    val ability: Ability,  // Mapeando o objeto "ability" com "name" e "url"
+data class AbilitySlot(
+    val ability: Ability,
     val is_hidden: Boolean,
     val slot: Int
 )
@@ -22,7 +22,7 @@ data class Ability(
     val url: String
 )
 
-data class TypeSlot(  // Já está correto, sem alterações
+data class TypeSlot(
     val slot: Int,
     val type: Type
 )
