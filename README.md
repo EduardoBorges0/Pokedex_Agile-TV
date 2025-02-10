@@ -2,6 +2,7 @@ Tecnologias usadas no projeto:
  - Jetpack Compose
  - RetroFit
  - Gson
+ - Coil
  - LiveData
  - JUnit
  - Mockk
