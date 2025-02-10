@@ -51,7 +51,6 @@ class NavHostActivity : ComponentActivity() {
 fun NavHostComposable(pokemonDetailsViewModel: PokemonDetailsViewModel, pokemonsViewModel: PokemonsViewModel) {
     val navHostController = rememberNavController()
     val context = LocalContext.current
-// Em MainActivity ou outra Activity
     val intent = Intent(context, MusicService::class.java)
 
     context.startService(intent)
