@@ -25,6 +25,9 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     var getAllPokemonsId by mutableStateOf(0)
     var getSearchPokemonsId by mutableStateOf(0)
 
@@ -36,7 +39,10 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
     fun getAllPokemons() {
         viewModelScope.launch {
             try {
+                _isLoading.value = true
                 _pokemonsLive.value = repositoriesPokemons.getAllPokemons()
+                _isLoading.value = false
+
             } catch (e: IOException) {
                 _errorLiveData.value = "Network error. Please check your connection."
                 Log.e("PokemonsViewModel", "Network error", e)
@@ -58,10 +64,13 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
 
     fun searchPokemons(searchValue: String) {
         val allPokemons = _pokemonsLive.value
+        _isLoading.value = true
         if (!searchValue.isBlank() && allPokemons != null) {
             val filteredResults = allPokemons.results.filter {
                 it.name.contains(searchValue, ignoreCase = true)
             }
+            _isLoading.value = false
+
             _searchResults.value = filteredResults
         } else {
             _searchResults.value = emptyList()

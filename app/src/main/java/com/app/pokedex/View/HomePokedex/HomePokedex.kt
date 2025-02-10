@@ -6,11 +6,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -29,7 +32,7 @@ import com.app.pokedex.ui.theme.backgroundColor
 fun HomePokedex(pokemonsViewModel: PokemonsViewModel, navController: NavController, pokemonDetailsViewModel: PokemonDetailsViewModel) {
     val pokemons by pokemonsViewModel.pokemonsLive.observeAsState()
     val getAllPokemonsId = pokemonsViewModel.getAllPokemonsId
-
+    val isLoading by pokemonsViewModel.isLoading.observeAsState()
     val spritePokemon = pokemons?.results?.get(getAllPokemonsId)?.spriteUrl
     val pokemonName = pokemons?.results?.get(getAllPokemonsId)?.name.toString()
     val pokemonId = pokemons?.results?.get(getAllPokemonsId)?.id.toString()
@@ -39,8 +42,7 @@ fun HomePokedex(pokemonsViewModel: PokemonsViewModel, navController: NavControll
 
     Box(modifier = Modifier
         .background(backgroundColor)
-
-        .fillMaxSize()
+        .fillMaxSize(),
 
     ){
         AsyncImage(
@@ -63,7 +65,9 @@ fun HomePokedex(pokemonsViewModel: PokemonsViewModel, navController: NavControll
                 pokemonName,
                 pokemonId
             )
-
+            if(isLoading.toString() == "true"){
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center).size(86.dp), color = Color.White)
+            }
             ClickableControlCross(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
@@ -71,29 +75,37 @@ fun HomePokedex(pokemonsViewModel: PokemonsViewModel, navController: NavControll
                     ),
 
                 onUpClick = {
-                    navController.navigate("details")
-                    pokemonsViewModel.getSearchPokemonsId = pokemonId.toInt().minus(1)
-                    Utils.playSound(context)
+                    if(isLoading.toString() != "true"){
+                        navController.navigate("details")
+                        pokemonsViewModel.getSearchPokemonsId = pokemonId.toInt().minus(1)
+                        Utils.playSound(context)
+                    }
                 },
 
                 onDownClick = {
-                    navController.navigate("search")
-                    pokemonsViewModel.resetCount()
-                    Utils.playSound(context)
+                    if(isLoading.toString() != "true"){
+                        navController.navigate("search")
+                        pokemonsViewModel.resetCount()
+                        Utils.playSound(context)
+                    }
                 },
 
                 onLeftClick = {
-                    if(getAllPokemonsId > 0){
-                        pokemonsViewModel.decrementCount()
+                    if(isLoading.toString() != "true"){
+                        if(getAllPokemonsId > 0){
+                            pokemonsViewModel.decrementCount()
+                        }
+                        Utils.playSound(context)
                     }
-                    Utils.playSound(context)
                 },
 
                 onRightClick = {
-                    if(getAllPokemonsId < 149){
-                        pokemonsViewModel.incrementCount()
+                    if(isLoading.toString() != "true"){
+                        if(getAllPokemonsId < 149){
+                            pokemonsViewModel.incrementCount()
+                        }
+                        Utils.playSound(context)
                     }
-                    Utils.playSound(context)
                 }
             )
         }
