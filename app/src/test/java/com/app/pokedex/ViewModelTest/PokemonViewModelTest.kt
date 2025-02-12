@@ -26,7 +26,7 @@ import org.junit.Test
 class PokemonsViewModelTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val rule = InstantTaskExecutorRule() // Permite testes com LiveData no ambiente de teste da JVM
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var mockRepositories: RepositoriesPokemons
@@ -35,7 +35,7 @@ class PokemonsViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        mockRepositories = mockk(relaxed = true)
+        mockRepositories = mockk(relaxed = true) // Relaxado para evitar erro de mock
         viewModel = PokemonsViewModel(mockRepositories)
     }
 
@@ -89,8 +89,9 @@ class PokemonsViewModelTest {
 
         // Act
         viewModel.getAllPokemons()
-        advanceUntilIdle()
+        advanceUntilIdle() // Aguarda a conclusão da corrotina e a atualização do LiveData
 
+        // Agora, o LiveData deve estar atualizado
         viewModel.searchPokemons("pikachu")
 
         // Assert

@@ -85,9 +85,7 @@ fun PokemonsDetails(
                 navController.navigate("home")
                 Utils.playSound(context)
             },
-            onLeftClick = {
-                Log.d("A", "RESULTADOOOO: ${pokemonsViewModel.getAllPokemonsId}")
-            },
+            onLeftClick = {            },
             onRightClick = {}
         )
     }
