@@ -20,7 +20,7 @@
             android:exported="false"
             tools:ignore="WrongManifestParent" />
         <activity
-            android:name=".View.Nav.NavHostActivity"
+            android:name=".presentation.view.Nav.NavHostActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Pokedex">

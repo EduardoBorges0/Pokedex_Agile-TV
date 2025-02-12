@@ -1,13 +1,11 @@
 package com.app.pokedex.ViewModelTest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.app.pokedex.Model.Entities.PokemonsEntities
-import com.app.pokedex.Model.Entities.Results
-import com.app.pokedex.Model.Repositories.RepositoriesPokemons
-import com.app.pokedex.ViewModel.PokemonsViewModel
+import com.app.pokedex.data.model.entities.PokemonsEntities
+import com.app.pokedex.data.model.entities.Results
+import com.app.pokedex.data.repositories.RepositoriesPokemons
+import com.app.pokedex.presentation.viewmodel.PokemonsViewModel
 import io.mockk.*
-import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
