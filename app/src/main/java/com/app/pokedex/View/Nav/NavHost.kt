@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -29,15 +30,15 @@ import com.app.pokedex.ViewModel.PokemonDetailsViewModel
 import com.app.pokedex.ViewModel.PokemonsViewModel
 import com.app.pokedex.ui.theme.PokedexTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NavHostActivity : ComponentActivity() {
-    private lateinit var pokemonsViewModel: PokemonsViewModel
-    private lateinit var pokemonDetailsViewModel: PokemonDetailsViewModel
+    private val pokemonsViewModel: PokemonsViewModel by viewModels()
+    private val pokemonDetailsViewModel: PokemonDetailsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        pokemonsViewModel = PokemonsViewModel(RepositoriesPokemons(GETPokemons.getInstance()))
-        pokemonDetailsViewModel = PokemonDetailsViewModel(RepositoriesPokemonDetails(GETPokemonDetails.getInstance()))
         setContent {
             PokedexTheme {
                 NavHostComposable(pokemonDetailsViewModel, pokemonsViewModel)

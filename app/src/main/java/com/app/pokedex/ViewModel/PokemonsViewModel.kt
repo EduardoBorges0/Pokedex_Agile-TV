@@ -12,10 +12,16 @@ import androidx.lifecycle.viewModelScope
 import com.app.pokedex.Model.Entities.PokemonsEntities
 import com.app.pokedex.Model.Entities.Results
 import com.app.pokedex.Model.Repositories.RepositoriesPokemons
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
-class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) : ViewModel() {
+@HiltViewModel
+class PokemonsViewModel @Inject constructor(
+    private val repositoriesPokemons: RepositoriesPokemons
+) : ViewModel() {
+
     private val _pokemonsLive = MutableLiveData<PokemonsEntities>()
     val pokemonsLive: LiveData<PokemonsEntities> = _pokemonsLive
 
@@ -30,7 +36,6 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
 
     var getAllPokemonsId by mutableStateOf(0)
     var getSearchPokemonsId by mutableStateOf(0)
-
 
     init {
         getAllPokemons()
@@ -52,14 +57,17 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
             }
         }
     }
-     fun incrementCount(){
-         getAllPokemonsId += 1
+
+    fun incrementCount() {
+        getAllPokemonsId += 1
     }
-     fun decrementCount(){
-         getAllPokemonsId -= 1
+
+    fun decrementCount() {
+        getAllPokemonsId -= 1
     }
-     fun resetCount(){
-         getAllPokemonsId = 0
+
+    fun resetCount() {
+        getAllPokemonsId = 0
     }
 
     fun searchPokemons(searchValue: String) {
@@ -70,7 +78,6 @@ class PokemonsViewModel(private val repositoriesPokemons: RepositoriesPokemons) 
                 it.name.contains(searchValue, ignoreCase = true)
             }
             _isLoading.value = false
-
             _searchResults.value = filteredResults
         } else {
             _searchResults.value = emptyList()

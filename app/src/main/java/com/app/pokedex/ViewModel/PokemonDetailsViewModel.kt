@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.app.pokedex.Model.Entities.DetailsPokemon
 import com.app.pokedex.Model.Entities.PokemonsEntities
 import com.app.pokedex.Model.Repositories.RepositoriesPokemonDetails
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
-class PokemonDetailsViewModel(private val repositoriesPokemonDetails: RepositoriesPokemonDetails) : ViewModel() {
+import javax.inject.Inject
+@HiltViewModel
+class PokemonDetailsViewModel @Inject constructor(private val repositoriesPokemonDetails: RepositoriesPokemonDetails) : ViewModel() {
 
     val _pokemonDetails = MutableLiveData<DetailsPokemon>()
     val pokemonsDetails : LiveData<DetailsPokemon> = _pokemonDetails
