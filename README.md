@@ -2,6 +2,7 @@ Tecnologias usadas no projeto:
  - Jetpack Compose
  - RetroFit
  - Gson
+ - DI (Dependecy Injection) com Hilt
  - Coil
  - LiveData
  - JUnit
