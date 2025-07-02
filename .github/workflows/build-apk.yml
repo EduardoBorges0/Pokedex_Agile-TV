@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write   # 👈 NECESSÁRIO para criar release e enviar arquivos
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -25,8 +28,7 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Create Release
-        id: create_release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.${{ github.run_number }}
@@ -34,12 +36,6 @@ jobs:
           body: "Versão automática gerada pelo GitHub Actions."
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload APK to Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: app/build/outputs/apk/debug/app-debug.apk
+          files: app/build/outputs/apk/debug/app-debug.apk  # 👈 Upload incluído aqui
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
